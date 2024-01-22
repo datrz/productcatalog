@@ -42,7 +42,7 @@ elif selected == "Product Catalog":
     data = []
     for ean in ean_codes:
         product_info = product_details.get(ean, {})
-        picture_path = f'productcatalog/main/productphoto/{ean}_1.jpg'
+        picture_path = f'productphoto/{ean}_1.jpg'
         data.append({
             "Picture": picture_path,
             "Division": product_info.get("Division", "Unknown"),
