@@ -41,7 +41,7 @@ elif selected == "Product Catalog":
     data = []
     for ean in ean_codes:
         product_info = product_details.get(ean, {})
-        picture_path = f'productphoto/{ean}_1.jpg'
+        picture_path = f'productphotos/{ean}_1.jpg'
         if not os.path.exists(picture_path):
             picture_path = "https://via.placeholder.com/100"  # Placeholder if image not found
         data.append({
