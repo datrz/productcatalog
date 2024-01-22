@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
+import os
 
 # Sidebar
 with st.sidebar:
@@ -26,21 +27,35 @@ if selected == "Home":
 elif selected == "Product Catalog":
     st.title(f"{selected}")
 
-    # Sample Data for Product Catalog
-    sample_data = {
-        "Picture": ["https://via.placeholder.com/100", "https://via.placeholder.com/100", "https://via.placeholder.com/100"],
-        "Division": ["Electronics", "Home Appliances", "Sports"],
-        "EAN Code": ["123456789", "987654321", "112233445"],
-        "Description": ["Smartphone", "Microwave Oven", "Tennis Racket"],
-        "Brand": ["Brand A", "Brand B", "Brand C"],
-        "Order Quantity": [10, 20, 15],
-        "Price": ["$299", "$159", "$89"]
+    # EAN codes and product details
+    ean_codes = ["3337871311292", "3337871321994", "3337871323646", "3337871324599", "3337872410154"]
+    product_details = {
+        "3337871311292": {"Description": "Creme A", "Order Quantity": 6, "Price": "DKK 50"},
+        "3337871321994": {"Description": "Creme B", "Order Quantity": 3, "Price": "DKK 75"},
+        "3337871323646": {"Description": "Creme C", "Order Quantity": 12, "Price": "DKK 65"},
+        "3337871324599": {"Description": "Creme D", "Order Quantity": 8, "Price": "DKK 55"},
+        "3337872410154": {"Description": "Creme E", "Order Quantity": 5, "Price": "DKK 80"}
     }
-    df = pd.DataFrame(sample_data)
+
+    # Prepare DataFrame
+    data = []
+    for ean in ean_codes:
+        product_info = product_details.get(ean, {})
+        picture_path = f'productphoto/{ean}_1.jpg'
+        if not os.path.exists(picture_path):
+            picture_path = "https://via.placeholder.com/100"  # Placeholder if image not found
+        data.append({
+            "Picture": picture_path,
+            "EAN Code": ean,
+            "Description": product_info.get("Description", "Unknown"),
+            "Order Quantity": product_info.get("Order Quantity", 0),
+            "Price": product_info.get("Price", "DKK 0")
+        })
+    df = pd.DataFrame(data)
 
     # Filters
-    division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()))
-    brand_filter = st.sidebar.selectbox("Filter by Brand", ["All"] + list(df["Brand"].unique()))
+    division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()), index=0)
+    brand_filter = st.sidebar.selectbox("Filter by Brand", ["All"] + list(df["Brand"].unique()), index=0)
     name_search = st.sidebar.text_input("Search in Name")
 
     # Filtering Data
@@ -61,7 +76,7 @@ elif selected == "Product Catalog":
         </style>
     """, unsafe_allow_html=True)
 
-    # Convert image URLs to HTML img tag
+    # Convert image paths to HTML img tag
     df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
 
     # Display DataFrame as HTML
