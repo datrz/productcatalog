@@ -2,6 +2,13 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
 import os
+import base64
+
+# Function to convert image file to data URI
+def get_image_data_uri(file_path):
+    with open(file_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+    return f"data:image/jpeg;base64,{encoded_string}"
 
 # Sidebar
 with st.sidebar:
@@ -41,11 +48,14 @@ elif selected == "Product Catalog":
     data = []
     for ean in ean_codes:
         product_info = product_details.get(ean, {})
-        picture_path = f'productphotos/{ean}_1.jpg'
-        if not os.path.exists(picture_path):
-            picture_path = "https://via.placeholder.com/100"  # Placeholder if image not found
+        picture_path = f'productphoto/{ean}_1.jpg'
+        if os.path.exists(picture_path):
+            image_data_uri = get_image_data_uri(picture_path)
+            image_html = f'<img src="{image_data_uri}" width="100">'
+        else:
+            image_html = "No Image"
         data.append({
-            "Picture": st.image(picture_path, width=100),
+            "Picture": image_html,
             "Division": product_info.get("Division", "Unknown"),
             "EAN Code": ean,
             "Description": product_info.get("Description", "Unknown"),
