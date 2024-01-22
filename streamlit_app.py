@@ -9,17 +9,30 @@ def get_base64_of_image(path):
     with open(path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
+# Define country flags and their corresponding country codes
+country_flags = {
+    "DK": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/338px-Flag_of_Denmark.svg.png",  # Replace with the actual URL of the DK flag image
+    "SE": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/383px-Flag_of_Sweden.svg.png",  # Replace with the actual URL of the SE flag image
+    "NO": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Norway.svg/1280px-Flag_of_Norway.svg.png",  # Replace with the actual URL of the NO flag image
+    "FI": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/1920px-Flag_of_Finland.svg.png"   # Replace with the actual URL of the FI flag image
+}
+
 # Sidebar
 with st.sidebar:
-    # Country selection
-    country = st.selectbox("Select your country:", ["DK", "SE", "NO", "FI"])
-
+    st.title("Country Selection")
+    selected_country = st.selectbox("Select your country:", list(country_flags.keys()), format_func=lambda x: "")
+    for country_code, flag_url in country_flags.items():
+        if country_code == selected_country:
+            st.image(flag_url, use_container_width=True, caption=country_code)
+        else:
+            st.image(flag_url, use_container_width=True, caption=country_code, on_click=lambda code=country_code: set_selected_country(code))
+    st.title("Product Catalog Options")
     selected = option_menu(
         menu_title="Product Catalog",
         options=["Home", "Product Catalog", "Contact"],
         icons=["house", "cart", "envelope"],
         menu_icon="cast",
-        default_index=0,
+        default_index=1,  # Set "Product Catalog" as the default option
     )
 
 # Home Page
@@ -62,8 +75,8 @@ elif selected == "Product Catalog":
         }
     }
 
-    if country in product_catalogs:
-        catalog_data = product_catalogs[country]
+    if selected_country in product_catalogs:
+        catalog_data = product_catalogs[selected_country]
         if "ean_codes" in catalog_data:
             ean_codes = catalog_data["ean_codes"]
             product_details = catalog_data["product_details"]
