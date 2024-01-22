@@ -75,7 +75,7 @@ elif selected == "Product Catalog":
                 if os.path.exists(picture_path):
                     # Convert image to base64 string for HTML embedding
                     img_base64 = get_base64_of_image(picture_path)
-                    img_html = f'<img src="data:image/jpeg;base64,{img_base64}" width="100">'
+                    img_html = f'<img src="data:image/jpeg;base64,{img_base64}" width="150">'
                 else:
                     img_html = "<p>No Image</p>"
                 data.append({
@@ -103,8 +103,8 @@ elif selected == "Product Catalog":
             st.write("""
                 <style>
                     .dataframe img {
-                        max-width: 100px;
-                        max-height: 100px;
+                        max-width: 150px;
+                        max-height: 150px;
                     }
                 </style>
             """, unsafe_allow_html=True)
