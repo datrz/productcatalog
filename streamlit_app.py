@@ -30,11 +30,11 @@ elif selected == "Product Catalog":
     # EAN codes and product details
     ean_codes = ["3337871311292", "3337871321994", "3337871323646", "3337871324599", "3337872410154"]
     product_details = {
-        "3337871311292": {"Description": "Creme A", "Order Quantity": 6, "Price": "DKK 50"},
-        "3337871321994": {"Description": "Creme B", "Order Quantity": 3, "Price": "DKK 75"},
-        "3337871323646": {"Description": "Creme C", "Order Quantity": 12, "Price": "DKK 65"},
-        "3337871324599": {"Description": "Creme D", "Order Quantity": 8, "Price": "DKK 55"},
-        "3337872410154": {"Description": "Creme E", "Order Quantity": 5, "Price": "DKK 80"}
+        "3337871311292": {"Division: "CPD", "Description": "Creme A", "Order Quantity": 6, "Price": "DKK 50"},
+        "3337871321994": {"Division: "LDB", "Description": "Creme B", "Order Quantity": 3, "Price": "DKK 75"},
+        "3337871323646": {"Division: "CPD", "Description": "Creme C", "Order Quantity": 12, "Price": "DKK 65"},
+        "3337871324599": {"Division: "LDB", "Description": "Creme D", "Order Quantity": 8, "Price": "DKK 55"},
+        "3337872410154": {"Division: "CPD", "Description": "Creme E", "Order Quantity": 5, "Price": "DKK 80"}
     }
 
     # Prepare DataFrame
