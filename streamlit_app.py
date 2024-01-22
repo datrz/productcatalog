@@ -122,22 +122,23 @@ elif selected == "Contact":
     st.title(f"{selected}")
     st.header("Get in Touch")
 
-    # Tech Support Contact
-    st.subheader("Tech Support")
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.text("Name: John Doe")
-    with col2:
-        st.text("Email: johndoe@example.com")
-    with col3:
-        st.text("Function: Tech Support Lead")
+    # Contact information
+    contact_data = [
+        {"Name": "John Doe", "Email": "johndoe@example.com", "Function": "Tech Support Lead"},
+        {"Name": "Jane Smith", "Email": "janesmith@example.com", "Function": "Catalog Manager"},
+    ]
 
-    # Product Catalog Owner Contact
-    st.subheader("Product Catalog Owner")
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.text("Name: Jane Smith")
-    with col2:
-        st.text("Email: janesmith@example.com")
-    with col3:
-        st.text("Function: Catalog Manager")
+    # Create a DataFrame from the contact data
+    contact_df = pd.DataFrame(contact_data)
+
+    # Display the contact information as a table
+    st.write("""
+        <style>
+            .dataframe img {
+                max-width: 100px;
+                max-height: 100px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.write(contact_df.to_html(escape=False, index=False), unsafe_allow_html=True)
