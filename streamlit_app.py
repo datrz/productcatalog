@@ -17,7 +17,7 @@ if selected == "Home":
     st.title(f"{selected}")
     st.header("Welcome to our Product Catalog")
     # Image link placeholder
-    image_url = ""  # Replace with your image URL
+    image_url = "header_loreal.png"  # Replace with your image URL
     if image_url:
         st.image(image_url, width=700)
     st.write("Explore our extensive range of products and services. Navigate through different menus to find what you're looking for.")
