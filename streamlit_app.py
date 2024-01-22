@@ -45,7 +45,7 @@ elif selected == "Product Catalog":
         if not os.path.exists(picture_path):
             picture_path = "https://via.placeholder.com/100"  # Placeholder if image not found
         data.append({
-            "Picture": picture_path,
+            "Picture": st.image(picture_path, width=100),
             "Division": product_info.get("Division", "Unknown"),
             "EAN Code": ean,
             "Description": product_info.get("Description", "Unknown"),
