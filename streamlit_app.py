@@ -120,7 +120,7 @@ elif selected == "Product Catalog":
 # Contact Page
 elif selected == "Contact":
     st.title(f"{selected}")
-    st.header("Get in Touch")
+    st.write("If you experience any issues with the product catalog, would like to ask about something or report something, please find the contact details below")
 
     # Contact information
     contact_data = [
