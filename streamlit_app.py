@@ -74,22 +74,23 @@ elif selected == "Product Catalog":
     if name_search:
         df = df[df["Description"].str.contains(name_search, case=False)]
 
-    # Display Table with Images
-    st.write("""
-        <style>
-            .dataframe img {
-                max-width: 100px;
-                max-height: 100px;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # Convert image paths to HTML img tag
-    df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
-
-    # Display DataFrame as HTML
-    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
-
+ # Custom Table Layout with Images
+    for index, row in df.iterrows():
+        cols = st.columns([1, 2, 2, 2, 2, 2])
+        picture_path = row['Picture'] if os.path.exists(row['Picture']) else "https://via.placeholder.com/100"
+        with cols[0]:
+            st.image(picture_path, width=100)
+        with cols[1]:
+            st.text(f"Division: {row['Division']}")
+        with cols[2]:
+            st.text(f"EAN Code: {row['EAN Code']}")
+        with cols[3]:
+            st.text(f"Description: {row['Description']}")
+        with cols[4]:
+            st.text(f"Order Quantity: {row['Order Quantity']}")
+        with cols[5]:
+            st.text(f"Price: {row['Price']}")
+        st.markdown("---")  # Line separator
 
 # Contact Page
 elif selected == "Contact":
