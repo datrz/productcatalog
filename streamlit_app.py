@@ -55,14 +55,20 @@ elif selected == "Product Catalog":
     df = pd.DataFrame(data)
 
     # Filters
-    division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()))
+    if 'Division' in df.columns:
+        division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()))
+    else:
+        division_filter = "All"
     name_search = st.sidebar.text_input("Search in Name")
 
     # Filtering Data
     if division_filter != "All":
         df = df[df["Division"] == division_filter]
-    if name_search:
-        df = df[df["Description"].str.contains(name_search, case=False)]
+    # Name Search Filter
+    if 'Description' in df.columns:
+        name_search = st.sidebar.text_input("Search in Name")
+        if name_search:
+            df = df[df["Description"].str.contains(name_search, case=False)]
 
     # Display Table with Images
     st.write("""
