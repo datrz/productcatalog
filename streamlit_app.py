@@ -110,7 +110,7 @@ elif selected == "Product Catalog":
             """, unsafe_allow_html=True)
 
             # Convert image paths to HTML img tag
-            df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
+            df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="150">')
 
             # Display DataFrame as HTML
             st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
