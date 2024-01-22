@@ -13,10 +13,10 @@ with st.sidebar:
     default_index = 0,
 
   )
-  if selected == "Home":
-    st.title(f"You Have selected {selected}")
-    st.header('Snowflake Healthcare App')
-  if selected == "Projects":
-    st.title(f"You Have selected {selected}")
-  if selected == "Contact":
-    st.title(f"You Have selected {selected}")
+if selected == "Home":
+  st.title(f"You Have selected {selected}")
+  st.header('Snowflake Healthcare App')
+if selected == "Projects":
+  st.title(f"You Have selected {selected}")
+if selected == "Contact":
+  st.title(f"You Have selected {selected}")
