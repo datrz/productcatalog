@@ -27,7 +27,7 @@ if selected == "Home":
     image_url = "header_loreal.png"  # Replace with your image URL
     if image_url:
         st.image(image_url, width=700)
-    st.write("Explore our extensive range of products and services. Navigate through different menus to find what you're looking for.")
+    st.write("Explore the employee shop catalog. Go to the Product Catalog menu to browse through products.")
 
 # Product Catalog
 elif selected == "Product Catalog":
