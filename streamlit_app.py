@@ -2,8 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+import base64
 
 # Sidebar
 with st.sidebar:
@@ -64,18 +63,21 @@ elif selected == "Product Catalog":
     if name_search:
         df = df[df["Description"].str.contains(name_search, case=False)]
 
-    # Display Products in a Grid
-    fig, axs = plt.subplots(len(df), 1, figsize=(5, len(df)*3))
-    if len(df) == 1:  # If there's only one product, axs is not a list
-        axs = [axs]
-    for ax, (_, row) in zip(axs, df.iterrows()):
-        image_path = row['Picture']
-        img = mpimg.imread(image_path)
-        ax.imshow(img)
-        ax.set_title(f"{row['Description']} - {row['EAN Code']} - {row['Price']}")
-        ax.axis('off')  # Hide axes
-    st.pyplot(fig)
+    # Display Table with Images
+    st.write("""
+        <style>
+            .dataframe img {
+                max-width: 100px;
+                max-height: 100px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
+    # Convert image paths to HTML img tag
+    df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
+
+    # Display DataFrame as HTML
+    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
 # Contact Page
