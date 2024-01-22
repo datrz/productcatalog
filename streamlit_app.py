@@ -15,7 +15,7 @@ with st.sidebar:
 # Home Page
 if selected == "Home":
     st.title(f"{selected}")
-    st.header("Welcome to Company XYZ's Product Catalog")
+    st.header("Welcome to our Product Catalog")
     # Image link placeholder
     image_url = ""  # Replace with your image URL
     if image_url:
