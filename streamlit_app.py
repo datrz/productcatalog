@@ -2,7 +2,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
 import os
-import base64
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 # Sidebar
 with st.sidebar:
@@ -63,21 +64,21 @@ elif selected == "Product Catalog":
     if name_search:
         df = df[df["Description"].str.contains(name_search, case=False)]
 
-    # Display Table with Images
-    st.write("""
-        <style>
-            .dataframe img {
-                max-width: 100px;
-                max-height: 100px;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+    # Display Products in a Grid
+    fig, axs = plt.subplots(len(df), 1, figsize=(5, len(df)*3))
+    if len(df) == 1:  # If there's only one product, axs is not a list
+        axs = [axs]
+    for ax, (_, row) in zip(axs, df.iterrows()):
+        image_path = row['Picture']
+        if os.path.exists(image_path):
+            img = mpimg.imread(image_path)
+        else:
+            img = mpimg.imread("https://via.placeholder.com/100")
+        ax.imshow(img)
+        ax.set_title(f"{row['Description']} - {row['EAN Code']} - {row['Price']}")
+        ax.axis('off')  # Hide axes
+    st.pyplot(fig)
 
-    # Convert image paths to HTML img tag
-    df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
-
-    # Display DataFrame as HTML
-    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
 # Contact Page
