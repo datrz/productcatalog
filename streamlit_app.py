@@ -70,10 +70,7 @@ elif selected == "Product Catalog":
         axs = [axs]
     for ax, (_, row) in zip(axs, df.iterrows()):
         image_path = row['Picture']
-        if os.path.exists(image_path):
-            img = mpimg.imread(image_path)
-        else:
-            img = mpimg.imread("https://via.placeholder.com/100")
+        img = mpimg.imread(image_path)
         ax.imshow(img)
         ax.set_title(f"{row['Description']} - {row['EAN Code']} - {row['Price']}")
         ax.axis('off')  # Hide axes
