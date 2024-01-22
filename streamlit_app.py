@@ -28,7 +28,7 @@ elif selected == "Product Catalog":
 
     # Sample Data for Product Catalog
     sample_data = {
-        "Picture": ["[Image Link]", "[Image Link]", "[Image Link]"],
+        "Picture": ["https://via.placeholder.com/100", "https://via.placeholder.com/100", "https://via.placeholder.com/100"],
         "Division": ["Electronics", "Home Appliances", "Sports"],
         "EAN Code": ["123456789", "987654321", "112233445"],
         "Description": ["Smartphone", "Microwave Oven", "Tennis Racket"],
@@ -51,8 +51,22 @@ elif selected == "Product Catalog":
     if name_search:
         df = df[df["Description"].str.contains(name_search, case=False)]
 
-    # Display Table
-    st.table(df)
+    # Display Table with Images
+    st.write("""
+        <style>
+            .dataframe img {
+                max-width: 100px;
+                max-height: 100px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Convert image URLs to HTML img tag
+    df['Picture'] = df['Picture'].apply(lambda x: f'<img src="{x}" width="100">')
+
+    # Display DataFrame as HTML
+    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
+
 
 # Contact Page
 elif selected == "Contact":
