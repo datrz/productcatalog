@@ -1,2 +1,3 @@
 # requirements.txt
+streamlit-component-template-vue
 streamlit-option-menu
