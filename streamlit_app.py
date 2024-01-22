@@ -47,7 +47,7 @@ elif selected == "Product Catalog":
     data = []
     for ean in ean_codes:
         product_info = product_details.get(ean, {})
-        picture_path = f'productphoto/{ean}_1.jpg'
+        picture_path = f'https://raw.githubusercontent.com/datrz/productcatalog/main/productphotos/{ean}_1.jpg'
         if os.path.exists(picture_path):
             # Convert image to base64 string for HTML embedding
             img_base64 = get_base64_of_image(picture_path)
