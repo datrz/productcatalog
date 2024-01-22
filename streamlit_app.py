@@ -55,20 +55,14 @@ elif selected == "Product Catalog":
     df = pd.DataFrame(data)
 
     # Filters
-    if 'Division' in df.columns:
-        division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()))
-    else:
-        division_filter = "All"
-    name_search = st.sidebar.text_input("Search in Name")
+    division_filter = st.sidebar.selectbox("Filter by Division", ["All"] + list(df["Division"].unique()))
+    name_search = st.sidebar.text_input("Search in Name", key="name_search")
 
     # Filtering Data
     if division_filter != "All":
         df = df[df["Division"] == division_filter]
-    # Name Search Filter
-    if 'Description' in df.columns:
-        name_search = st.sidebar.text_input("Search in Name")
-        if name_search:
-            df = df[df["Description"].str.contains(name_search, case=False)]
+    if name_search:
+        df = df[df["Description"].str.contains(name_search, case=False)]
 
     # Display Table with Images
     st.write("""
@@ -85,6 +79,7 @@ elif selected == "Product Catalog":
 
     # Display DataFrame as HTML
     st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
+
 
 # Contact Page
 elif selected == "Contact":
