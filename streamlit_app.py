@@ -135,8 +135,8 @@ elif selected == "Contact":
     st.write("""
         <style>
             .dataframe img {
-                max-width: 100px;
-                max-height: 100px;
+                max-width: 150px;
+                max-height: 150px;
             }
         </style>
     """, unsafe_allow_html=True)
