@@ -9,11 +9,11 @@ def get_base64_of_image(path):
     with open(path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
-# Country selection
-country = st.selectbox("Select your country:", ["DK", "SE", "NO", "FI"])
-
 # Sidebar
 with st.sidebar:
+    # Country selection
+    country = st.selectbox("Select your country:", ["DK", "SE", "NO", "FI"])
+
     selected = option_menu(
         menu_title="Product Catalog",
         options=["Home", "Product Catalog", "Contact"],
