@@ -46,6 +46,7 @@ elif selected == "Product Catalog":
             picture_path = "https://via.placeholder.com/100"  # Placeholder if image not found
         data.append({
             "Picture": picture_path,
+            "Division": product_info.get("Division", "Unknown"),
             "EAN Code": ean,
             "Description": product_info.get("Description", "Unknown"),
             "Order Quantity": product_info.get("Order Quantity", 0),
