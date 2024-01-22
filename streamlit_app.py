@@ -4,6 +4,11 @@ import pandas as pd
 import os
 import base64
 
+# Function to convert image file to base64 string
+def get_base64_of_image(path):
+    with open(path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+        
 # Sidebar
 with st.sidebar:
     selected = option_menu(
@@ -43,6 +48,12 @@ elif selected == "Product Catalog":
     for ean in ean_codes:
         product_info = product_details.get(ean, {})
         picture_path = f'productphoto/{ean}_1.jpg'
+        if os.path.exists(picture_path):
+            # Convert image to base64 string for HTML embedding
+            img_base64 = get_base64_of_image(picture_path)
+            img_html = f'<img src="data:image/jpeg;base64,{img_base64}" width="100">'
+        else:
+            img_html = "<p>No Image</p>"
         data.append({
             "Picture": picture_path,
             "Division": product_info.get("Division", "Unknown"),
@@ -51,6 +62,7 @@ elif selected == "Product Catalog":
             "Order Quantity": product_info.get("Order Quantity", 0),
             "Price": product_info.get("Price", "DKK 0")
         })
+
     df = pd.DataFrame(data)
 
     # Filters
