@@ -13,9 +13,9 @@ with st.sidebar:
 
 # Main page
 if selected == "Home":
-    st.title(f"You Have Selected {selected}")
+    st.title(f"{selected}")
     st.header('Snowflake Healthcare App')
 elif selected == "Projects":
-    st.title(f"You Have Selected {selected}")
+    st.title(f"{selected}")
 elif selected == "Contact":
-    st.title(f"You Have Selected {selected}")
+    st.title(f"{selected}")
